@@ -1,0 +1,62 @@
+// Layout
+// rafce
+// Header / Navbar / Logo
+
+// Maybe star wars moving stars background if possible with letters rolling from film
+// Music Player that auto starts
+
+// filtered search bar at top
+
+// list of first 10 people
+
+
+
+// useEffect(() => {
+//   getPeople()
+//     .then(people => 
+//       people.map(person => 
+//         Promise.all([person, getHomeworld(person), getSpecies(person)])
+//       )
+//     ).then((people) => {
+//       for ([person, homeworld, species] in people) {
+//         // do some stuff
+//       }
+//     })
+
+
+// if you abstract away your axios calls into separate functions, you can keep it clean
+// ^ something like that, it probably has bugs but hopefully you get the idea
+// also, double check if their API has a ?includes=homeworld,species
+// it seems bad that their API makes you fetch back all this data with extra requests
+// there is usually a way to tell their API to fetch and join for you
+// Abudi — Today at 12:12 PM
+// replace the for loop with foreach or map 
+
+// response.map((data) => axios.get(data.homeworld));
+  // .then(function (response) {
+  //   setHome(response);
+  // })
+
+  // axios.get(characters.homeworld)
+  //   .then(function (response) {
+  //     setHome(response.data.results);
+  //     console.log(characters);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   })
+
+
+  // map through response
+  // call each one
+  // assign value to home 
+
+
+//   In the map you can do like this :
+// if(item.homeworld){
+// setHomeWorldState(item.homeworld)
+// }
+
+
+// And make a useEffect with a dependency for homeWorldState. 
+// Whenever your homeworld changes that useEffect will fire
