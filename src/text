@@ -23,7 +23,7 @@
 //       }
 //     })
 
-
+// update again
 // if you abstract away your axios calls into separate functions, you can keep it clean
 // ^ something like that, it probably has bugs but hopefully you get the idea
 // also, double check if their API has a ?includes=homeworld,species
