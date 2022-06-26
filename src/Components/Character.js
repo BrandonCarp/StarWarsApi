@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
+import axios from 'axios';
 
 const Character = (props) => {
 
@@ -9,6 +10,11 @@ const Character = (props) => {
       return props.species;
     }
   }
+
+  const [homeWorld, setHomeWorld] = useState('');
+
+  
+
   return (
     <div>
       <table>
@@ -29,7 +35,6 @@ const Character = (props) => {
         <th>{props.height}</th>
         <th>{props.mass}</th>
         <th>{props.homeWorld}</th>
-        {/* <th>{props.species}</th> */}
         <th>{species()}</th>
         </tr>
         </tbody>
