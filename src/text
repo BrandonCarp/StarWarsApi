@@ -10,53 +10,72 @@
 // list of first 10 people
 
 
+// Hugggeee
+
+
+// Characters.js
+// const [characters, setCharacters] = useState([]);
+// const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
+
+// const fetchPeople = async () => {
+//   const { data } = await axios.get(nextPageUrl);
+//   setCharacters((characters) => [...characters, ...data.results]);
+//   setNextPageUrl(data.url);
+// }
 
 // useEffect(() => {
-//   getPeople()
-//     .then(people => 
-//       people.map(person => 
-//         Promise.all([person, getHomeworld(person), getSpecies(person)])
-//       )
-//     ).then((people) => {
-//       for ([person, homeworld, species] in people) {
-//         // do some stuff
-//       }
-//     })
+//   fetchPeople();
+// }, []);
 
-// update again
-// if you abstract away your axios calls into separate functions, you can keep it clean
-// ^ something like that, it probably has bugs but hopefully you get the idea
-// also, double check if their API has a ?includes=homeworld,species
-// it seems bad that their API makes you fetch back all this data with extra requests
-// there is usually a way to tell their API to fetch and join for you
-// Abudi — Today at 12:12 PM
-// replace the for loop with foreach or map 
+// return characters.map(character => <Character homeworldUrl={character.homeworld} />
 
-// response.map((data) => axios.get(data.homeworld));
-  // .then(function (response) {
-  //   setHome(response);
-  // })
+// // Character.js
+// const Character = ({homeworldUrl}) => {
+//   const [home, setHome] = useState({});
 
-  // axios.get(characters.homeworld)
-  //   .then(function (response) {
-  //     setHome(response.data.results);
-  //     console.log(characters);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   })
+//   const fetchHomeworld = async () => {
+//     const { data } = await axios.get(homeworldUrl);
+//     // todo: implement the rest
+//     setHome(...);
+//   }
 
-
-  // map through response
-  // call each one
-  // assign value to home 
-
-
-//   In the map you can do like this :
-// if(item.homeworld){
-// setHomeWorldState(item.homeworld)
+//    useEffect(() => {
+//      fetchHomeworld();
+//    }, [homeworldUrl]);
 // }
 
 
-// And make a useEffect with a dependency for homeWorldState. 
-// Whenever your homeworld changes that useEffect will fire
+
+
+
+// Huge 2
+
+
+// const [characters, setCharacters] = useState([]);
+// const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
+
+// const fetchPeople = async () => {
+//   const { data } = await axios.get(nextPageUrl);
+//   setCharacters((characters) => [...characters, ...data.results]);
+//   setNextPageUrl(data.url);
+// }
+
+// useEffect(() => {
+//   fetchPeople();
+// }, []);
+// Now, you could set up a button to call fetchPeople once clicked, for pagination
+// Or, if you're really trying to fetch all the people until there aren't any left (I would advise against this), then you could add nextPageUrl in the dependency array:
+
+// useEffect(() => {
+//   if (nextPageUrl) {
+//     fetchPeople();
+//   }
+// }, [nextPageUrl]);
+
+
+
+// homeworld shit
+
+// Ahh okay. So the way I would structure this, is to create a Person component.
+
+// Pass the homeworld as a prop to the Person component, that will fetch that homeworld and display the necessary data.

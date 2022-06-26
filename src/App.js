@@ -8,52 +8,46 @@ import SearchBar from "./Components/SearchBar";
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
-  const [home, setHome] = useState([]);
-  const [species, setSpecies] = useState([]);
+  const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
+  const [backPageUrl, setBackPageUrl] = useState('');
 
 
-
-  const fetchPeople = () => {
-    const personApi = 'https://swapi.dev/api/people/';
-    const planetApi = 'https://swapi.dev/api/planets/';
-
-    const getPersonApi = axios.get(personApi);
-    const getPlanetApi = axios.get(planetApi);
-    axios.all([getPersonApi, getPlanetApi]).then(
-      axios.spread((...allData) => {
-        const allPeople = allData[0]
-        const allPlanets = allData[1]
-        setCharacters(allPeople);
-        setHome(allPlanets);
-      })
-    )
+  const fetchPeople = async () => {
+    const { data } = await axios.get(nextPageUrl);
+    setCharacters(data.results);
+    setNextPageUrl(data.next);
+    setBackPageUrl(data.previous);
   }
 
+  const backPage = async () => {
+      const { data } = await axios.get(backPageUrl);
+        setCharacters(data.results);
+      setNextPageUrl(data.next);
+      setBackPageUrl(data.previous);
+  }
+
+
   useEffect(() => {
-   fetchPeople();
+    fetchPeople();
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-  // const fetchData = () => {
-  //  const personApi = 'https://swapi.dev/api/people/';
-  //  const planetApi = 'https://swapi.dev/api/planets/';
-
-  //  const getPerson = axios.get(personApi);
-  //  const getPlanet = axios.get(planetApi);
-  //  axios.all([])
-  // }
-
-
-
- 
 
 
   return (
     <div>
      <Header />
      <SearchBar />
-     {/* <CharacterList list={characters}/> */}
-     <button onClick={(e) => console.log(characters, home)}>Click</button>
+     <CharacterList list={characters}/>
+     <button onClick={(e) => console.log(characters)}>Characters</button>
+     <button onClick={(e) => console.log(nextPageUrl)}>Next Page Url</button>
+     <button onClick={(e) => console.log(backPageUrl)}>Back Page Url</button>
+     <h4>Real Buttons Below</h4>
+     <button onClick={(e) => backPage()}>Back Page</button>
+     <button onClick={(e) => fetchPeople()}>Next Page</button>
+     
+     
     </div>
   );
 }

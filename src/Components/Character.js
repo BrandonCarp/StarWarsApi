@@ -1,6 +1,14 @@
 import React from 'react'
 
 const Character = (props) => {
+
+  const species = () => {
+    if(props.species.length < 1) {
+      return "Human";
+    } else {
+      return props.species;
+    }
+  }
   return (
     <div>
       <table>
@@ -21,7 +29,8 @@ const Character = (props) => {
         <th>{props.height}</th>
         <th>{props.mass}</th>
         <th>{props.homeWorld}</th>
-        <th>{props.species}</th>
+        {/* <th>{props.species}</th> */}
+        <th>{species()}</th>
         </tr>
         </tbody>
       </table>
