@@ -79,3 +79,11 @@
 // Ahh okay. So the way I would structure this, is to create a Person component.
 
 // Pass the homeworld as a prop to the Person component, that will fetch that homeworld and display the necessary data.
+
+
+
+// Search
+// Searching
+// All resources support a search parameter that filters the set of resources returned. This allows you to make queries like:
+
+// https://swapi.dev/api/people/?search=r2
