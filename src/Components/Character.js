@@ -22,11 +22,7 @@ const Character = (props) => {
   const fetchWorld = async () => {
     const { data } = await axios.get(props.homeWorld);
     setHomeWorld(data.name);
-    if(data.name.length > 1) {
-      props.loadingFunc(false);
-    } else {
-      props.loadingFunc(true);
-    }
+  
   };
 
      

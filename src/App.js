@@ -6,9 +6,6 @@ import SearchBar from "./Components/SearchBar";
 import swloading from './Components/swloading.gif';
 
 
-
-
-
 const App = () => {
   const [characters, setCharacters] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
@@ -31,33 +28,34 @@ const App = () => {
       setBackPageUrl(data.previous);
   }
 
-  // const loadingScreen = (data) => {
-  //     if(data ===  false) {
-  //       setLoading(false);
-  //     } else {
-  //       setLoading(true);
-  //     }
-  // }
-
   useEffect(() => {
     fetchPeople();
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+const swGif = setTimeout(() => {
+  <img src={swloading} alt='loading'/>;
+}, 1000);
+
+const testState = () => {
+
+}
+
+// button onClick 
+
 
 
   return (
     <div>
      <Header />
-     {/* <SearchBar /> */}
-{/* 
-     {loading ? <img src={swloading} alt='loading'/> : <CharacterList loadingScreen={loadingScreen()} list={characters}/>} */}
       <CharacterList  list={characters}/>
      <h4>Real Buttons Below</h4>
      <button onClick={(e) => backPage()}>Back Page</button>
      <button onClick={(e) => fetchPeople()}>Next Page</button>
-     
+     <h3>Test Button</h3>
+     <button onClick={(e) => testState()}>Click</button>
+    
      
     </div>
   );
