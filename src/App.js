@@ -10,8 +10,7 @@ const App = () => {
   const [characters, setCharacters] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
   const [backPageUrl, setBackPageUrl] = useState('');
-
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
 
 
   const fetchPeople = async () => {
@@ -23,27 +22,16 @@ const App = () => {
 
   const backPage = async () => {
       const { data } = await axios.get(backPageUrl);
-        setCharacters(data.results);
+      setCharacters(data.results);
       setNextPageUrl(data.next);
       setBackPageUrl(data.previous);
   }
 
   useEffect(() => {
-    fetchPeople();
-    
+     fetchPeople() 
+      
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-const swGif = setTimeout(() => {
-  <img src={swloading} alt='loading'/>;
-}, 1000);
-
-const testState = () => {
-
-}
-
-// button onClick 
-
 
 
   return (
@@ -54,7 +42,6 @@ const testState = () => {
      <button onClick={(e) => backPage()}>Back Page</button>
      <button onClick={(e) => fetchPeople()}>Next Page</button>
      <h3>Test Button</h3>
-     <button onClick={(e) => testState()}>Click</button>
     
      
     </div>
