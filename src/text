@@ -106,31 +106,31 @@ import { useEffect } from "react";
 
 //   getStuff();
 // }, []);
-const [characters, setCharacters] = useState([]);
-const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
-const [backPageUrl, setBackPageUrl] = useState('');
-const [loading, setLoading] = useState();
-const [homeWorld, setHomeWorld] = useState();
+// const [characters, setCharacters] = useState([]);
+// const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
+// const [backPageUrl, setBackPageUrl] = useState('');
+// const [loading, setLoading] = useState();
+// const [homeWorld, setHomeWorld] = useState();
 
-const getThings = () => {
-    const {data} = await axios.get(nextPageUrl);
-    setCharacters(data.results); 
-}
-
-
+// const getThings = () => {
+//     const {data} = await axios.get(nextPageUrl);
+//     setCharacters(data.results); 
+// }
 
 
-useEffect(() => {
-  async function getStuff() {
-    setLoading(true);
-    const things = await getThings();
-    const specificThings = await Promise.all(
-      things.map(thing => getSpecificThing(thing.url))
-    )
 
 
-    setLoading(False);
-  } 
+// useEffect(() => {
+//   async function getStuff() {
+//     setLoading(true);
+//     const things = await getThings();
+//     const specificThings = await Promise.all(
+//       things.map(thing => getSpecificThing(thing.url))
+//     )
 
-  getStuff();
-}, []);
+
+//     setLoading(False);
+//   } 
+
+//   getStuff();
+// }, []);
