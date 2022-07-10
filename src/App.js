@@ -10,8 +10,8 @@ const App = () => {
   const [characters, setCharacters] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
   const [backPageUrl, setBackPageUrl] = useState('');
-  const [loading, setLoading] = useState();
- const [testing, setTesting] = useState([]);
+  const [worldUrl, setWorldUrl] = useState([]);
+  const [speciesUrl, setSpeciesUrl] = useState([]);
 
   const fetchPeople = async () => {
     const { data } = await axios.get(nextPageUrl);
@@ -37,14 +37,16 @@ const App = () => {
     fetchPeople() 
     async function getStuff() {
       const things = await getThings();
-      setTesting(things);
+      
     }
      getStuff();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
+  
 
  
-
+ 
   return (
     <div>
      <Header />
@@ -53,8 +55,7 @@ const App = () => {
      <button onClick={(e) => backPage()}>Back Page</button>
      <button onClick={(e) => fetchPeople()}>Next Page</button>
      <h3>Test Button</h3>
-     <button onClick={console.log('testBTN', testing)}>Test</button>
-     
+     <button onClick={console.log()}>Test</button>
     </div>
   );
 }

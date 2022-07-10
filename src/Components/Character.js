@@ -1,37 +1,37 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios';
+import React from 'react'
+
 
 const Character = (props) => {
-  const [homeWorld, setHomeWorld] = useState('');
-  const [species, setSpecies] = useState('Human');
-  const [mass, setMass] = useState('NA');
+  // const [homeWorld, setHomeWorld] = useState('');
+  // const [species, setSpecies] = useState('Human');
+  // const [mass, setMass] = useState('NA');
 
 
-  const peopleSpecies = async () => {
-    if(props.species.length < 1) {
-      return species;
-    } else {
-      const { data } = await axios.get(props.species);
-      setSpecies(data.name);
-    }
-    if(props.mass > 1) {
-       setMass(props.mass);
-    }
-  }
+  // const peopleSpecies = async () => {
+  //   if(props.species.length < 1) {
+  //     return species;
+  //   } else {
+  //     const { data } = await axios.get(props.species);
+  //     setSpecies(data.name);
+  //   }
+  //   if(props.mass > 1) {
+  //      setMass(props.mass);
+  //   }
+  // }
 
-  const fetchWorld = async () => {
-    const { data } = await axios.get(props.homeWorld);
-    setHomeWorld(data.name);
+  // const fetchWorld = async () => {
+  //   const { data } = await axios.get(props.homeWorld);
+  //   setHomeWorld(data.name);
   
-  };
+  // };
 
      
-  useEffect(() => {
-    fetchWorld();
-     peopleSpecies();
+  // useEffect(() => {
+  //   fetchWorld();
+  //    peopleSpecies();
     
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[]);
 
 
   return (
@@ -52,9 +52,9 @@ const Character = (props) => {
         <th>{props.name}</th>
         <th>{props.birthYear}</th>
         <th>{props.height}</th>
-        <th>{mass}</th>
-         <th>{homeWorld}</th>
-        <th>{species}</th>
+        <th>{props.mass}</th>
+         <th>{props.homeworld}</th>
+        <th>{props.species}</th>
         </tr>
         </tbody>
       </table>
