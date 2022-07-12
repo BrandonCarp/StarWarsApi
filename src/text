@@ -106,31 +106,13 @@ import { useEffect } from "react";
 
 //   getStuff();
 // }, []);
-// const [characters, setCharacters] = useState([]);
-// const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
-// const [backPageUrl, setBackPageUrl] = useState('');
-// const [loading, setLoading] = useState();
-// const [homeWorld, setHomeWorld] = useState();
-
-// const getThings = () => {
-//     const {data} = await axios.get(nextPageUrl);
-//     setCharacters(data.results); 
-// }
 
 
 
-
-// useEffect(() => {
-//   async function getStuff() {
-//     setLoading(true);
-//     const things = await getThings();
-//     const specificThings = await Promise.all(
-//       things.map(thing => getSpecificThing(thing.url))
-//     )
+// const things = await getThings();
+// const specificUrl = await Promise.all(
+//   things.map((thing) => axios.get(thing.homeworld))
+// );
+// setHomeWorld(specificUrl);
 
 
-//     setLoading(False);
-//   } 
-
-//   getStuff();
-// }, []);
