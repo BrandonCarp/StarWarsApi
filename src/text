@@ -116,3 +116,23 @@ import { useEffect } from "react";
 // setHomeWorld(specificUrl);
 
 
+
+
+// New creating entire person object
+
+// async function getSwapi() {
+//   const persons = await fetchPeople();
+//   const specificUrls = await Promise.all(
+//     person.map((person) => axios.get(person.homeworld))
+//   );
+
+//   const newPersons = persons.map((person) => {
+//     return {
+//       ...person,
+//       homeworldData: specificUrls.find((url) => url.url === person.homeworld),
+//     };
+//   });
+//   return newPersons;
+// }
+
+

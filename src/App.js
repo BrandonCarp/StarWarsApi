@@ -12,8 +12,7 @@ const App = () => {
   const [species, setSpecies] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
   const [backPageUrl, setBackPageUrl] = useState('');
-  const [worldUrl, setWorldUrl] = useState([]);
-  const [speciesUrl, setSpeciesUrl] = useState([]);
+ 
 
   const fetchPeople = async () => {
     const { data } = await axios.get(nextPageUrl);
@@ -30,59 +29,57 @@ const App = () => {
       setBackPageUrl(data.previous);
   }
 
-  const getThings = async () => {
-    const {data} = await axios.get(nextPageUrl);
-    return data.results;
-  }
-
-  // const getSpecificUrl = async (url) => {
-  //   const {data} = await axios.get(url);
-  //   console.log(data);
-  //   return data;
+  // const getThings = async () => {
+  //   const {data} = await axios.get(nextPageUrl);
+  //   return data.results;
   // }
 
- 
 
-  // useEffect(() => {
-  //   async function getSwapi() {
-  //     const things = await getThings();
-  //     const specificUrl = await Promise.all([
-  //       things.map(thing => axios.get(thing.homeworld)
-  //       )
-  //     ]);
-  //       setHomeWorld(Promise.resolve(specificUrl));
-  //   }
-  //    getSwapi();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  
   useEffect(() => {
     async function getSwapi() {
-      const things = await fetchPeople();
-      const specificUrl = await Promise.all(
-        things.map((thing) => axios.get(thing.homeworld))
+      const persons = await fetchPeople();
+
+      const homeWorldUrl = await Promise.all(
+        persons.map((thing) => axios.get(thing.homeworld)),
       );
-      setHomeWorld(specificUrl);
+      const homeWorldNames = homeWorldUrl.map(
+        (names) => names.data.name
+      );
+
+     
+     const newPersons =  persons.map((person) => {
+      return {
+        ...person,
+        homeworld: axios.get(person.homeworld),
+      };
+     });
+     setHomeWorld(newPersons);
     }
      getSwapi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
-  
-  
 
- 
- 
+
+// config.url
+
+  // const newPersons = persons.map((person) => {
+  //   return {
+  //     ...person,
+  //     homeworldData: speciesUrl.find((url) => url.url === person.homeworld),
+  //   };
+  // });
+  
+  // species[2].data.name
+  
   return (
     <div>
      {/* <Header /> */}
-      <CharacterList  list={characters}/>
+      <CharacterList homeWorld={homeWorld} list={characters}/>
      <h4>Real Buttons Below</h4>
      <button onClick={(e) => backPage()}>Back Page</button>
      <button onClick={(e) => fetchPeople()}>Next Page</button>
      <h3>Test Button</h3>
-     <button onClick={(e) => console.log(characters)}>Test</button>
+     <button onClick={(e) => console.log(homeWorld)}>Test</button>
     </div>
   );
 }

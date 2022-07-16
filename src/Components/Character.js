@@ -53,7 +53,7 @@ const Character = (props) => {
         <th>{props.birthYear}</th>
         <th>{props.height}</th>
         <th>{props.mass}</th>
-         <th>{props.homeworld}</th>
+         <th>{props.homeWorld}</th>
         <th>{props.species}</th>
         </tr>
         </tbody>
