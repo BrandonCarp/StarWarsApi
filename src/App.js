@@ -8,6 +8,7 @@ import Header from "./Components/Header";
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
+  const [people, setPeople] = useState([]);
   const [homeWorld, setHomeWorld] = useState([]);
   const [species, setSpecies] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
@@ -29,11 +30,6 @@ const App = () => {
       setBackPageUrl(data.previous);
   }
 
-  // const getThings = async () => {
-  //   const {data} = await axios.get(nextPageUrl);
-  //   return data.results;
-  // }
-
 
   useEffect(() => {
     async function getSwapi() {
@@ -42,18 +38,21 @@ const App = () => {
       const homeWorldUrl = await Promise.all(
         persons.map((thing) => axios.get(thing.homeworld)),
       );
-      const homeWorldNames = homeWorldUrl.map(
-        (names) => names.data.name
-      );
-
+    
      
      const newPersons =  persons.map((person) => {
       return {
         ...person,
-        homeworld: axios.get(person.homeworld),
+        homeworld: homeWorldUrl.find((url) => url.config.url === person.homeworld)
       };
      });
-     setHomeWorld(newPersons);
+     const newPersons2 = newPersons.map((person) => {
+      return {
+        ...person,
+        homeWorld: person.homeworld.data.name
+      };
+     });
+     setPeople(newPersons2);
     }
      getSwapi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,12 +73,12 @@ const App = () => {
   return (
     <div>
      {/* <Header /> */}
-      <CharacterList homeWorld={homeWorld} list={characters}/>
+      <CharacterList  list={people}/>
      <h4>Real Buttons Below</h4>
      <button onClick={(e) => backPage()}>Back Page</button>
      <button onClick={(e) => fetchPeople()}>Next Page</button>
      <h3>Test Button</h3>
-     <button onClick={(e) => console.log(homeWorld)}>Test</button>
+     <button onClick={(e) => console.log(people)}>Test</button>
     </div>
   );
 }
