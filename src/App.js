@@ -10,7 +10,7 @@ const App = () => {
   const [characters, setCharacters] = useState([]);
   const [people, setPeople] = useState([]);
   const [homeWorld, setHomeWorld] = useState([]);
-  const [species, setSpecies] = useState([]);
+  // const [species, setSpecies] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState("https://swapi.dev/api/people/");
   const [backPageUrl, setBackPageUrl] = useState('');
   const [test, setTest] = useState([]);
@@ -25,7 +25,6 @@ const App = () => {
 
   const backPage = async () => {
       const { data } = await axios.get(backPageUrl);
-      setCharacters(data.results);
       setNextPageUrl(data.next);
       setBackPageUrl(data.previous);
   }
@@ -48,43 +47,56 @@ const App = () => {
 
    const newPersons2 = newPersons.map((person) => {
     return {
-      ...person,
+      ...person, 
       homeWorld: person.homeworld.data.name
     };
    });
    setPeople(newPersons2);
   }
 
-  // Get Species
+//   // Get Species
   async function getSpecies() {
-    const persons = await fetchPeople();
+    // const persons = await fetchPeople();
     const speciesUrl = await Promise.all(
-      persons
+      // filter by length to get all with [0] together since all are arrays of [0]
+      // map to create array of each one with an array of [0] 
+      people
         .filter((thing) => thing.species.length)
         .map((thing) => axios.get(thing.species[0]))
     );
-    const newSwapi = persons.map((person) => {
+
+
+    const newSwapi = people.map((person) => {
       return {
         ...person,
         species: speciesUrl.find((info) => info.data.url === person.species[0])
       };
     });
-
     const newSwapi2 = newSwapi.map((person) => {
-      return {
-        ...person,
-        species:  person.species.data.name
-      };
+      if(person.species == undefined){
+        return {...person, species: 'Human'}
+      } else {
+        return {...person, species: person.species.data.name}
+      }
      });
+setCharacters(newSwapi2); 
+console.log(characters);
       // species.data.name
-   setTest(newSwapi);
+   setTest(newSwapi2);
 }
+
+
  
 
   useEffect(() => {
-    getSpecies();
-     getPeople();
-  
+   async function getCharacters() {
+     await getPeople();
+        getSpecies();
+   }   
+    //  getPeople(); 
+    //  getSpecies();
+     
+getCharacters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,12 +104,12 @@ const App = () => {
   return (
     <div>
      {/* <Header /> */}
-      <CharacterList  list={people}/>
+      <CharacterList  list={characters}/>
      <h4>Real Buttons Below</h4>
      <button onClick={(e) => backPage()}>Back Page</button>
      <button onClick={(e) => fetchPeople()}>Next Page</button>
      <h3>Test Button</h3>
-     <button onClick={(e) => console.log(test[2].species.data.name)}>Test</button>
+     <button onClick={(e) => console.log(test)}>Test</button>
     </div>
   );
 }

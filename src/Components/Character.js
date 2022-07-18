@@ -19,25 +19,13 @@ const Character = (props) => {
   //   }
   // }
 
-  // const fetchWorld = async () => {
-  //   const { data } = await axios.get(props.homeWorld);
-  //   setHomeWorld(data.name);
-  
-  // };
-
-     
-  // useEffect(() => {
-  //   fetchWorld();
-  //    peopleSpecies();
-    
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[]);
+ 
 
 
   return (
     <div>
         <table>
-        <thead>
+        {/* <thead>
         <tr>
         <th>Name</th>
         <th>Birth Year</th>
@@ -46,7 +34,7 @@ const Character = (props) => {
         <th>Homeworld</th>
         <th>Species</th>
         </tr>
-        </thead>
+        </thead> */}
         <tbody>
         <tr>
         <th>{props.name}</th>
