@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Character = (props) => {
   // const [homeWorld, setHomeWorld] = useState('');
   // const [species, setSpecies] = useState('Human');
@@ -19,12 +18,9 @@ const Character = (props) => {
   //   }
   // }
 
- 
-
-
   return (
     <div>
-        <table>
+      <table>
         {/* <thead>
         <tr>
         <th>Name</th>
@@ -36,14 +32,14 @@ const Character = (props) => {
         </tr>
         </thead> */}
         <tbody>
-        <tr>
-        <th>{props.name}</th>
-        <th>{props.birthYear}</th>
-        <th>{props.height}</th>
-        <th>{props.mass}</th>
-         <th>{props.homeWorld}</th>
-        <th>{props.species}</th>
-        </tr>
+          <tr>
+            <th>{props.name}</th>
+            <th>{props.birthYear}</th>
+            <th>{props.height}</th>
+            <th>{props.mass}</th>
+            <th>{props.homeWorldName}</th>
+            <th>{props.species}</th>
+          </tr>
         </tbody>
       </table>
     </div>
