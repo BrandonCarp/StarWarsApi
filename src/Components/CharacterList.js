@@ -1,14 +1,17 @@
-import React  from 'react'
+import React from 'react'
 import Character from './Character'
 
-
-const CharacterList = (props) => {
-
-
- 
+const CharacterList = ({ characters }) => {
   return (
-    <div> 
-       {props.list.map((data) => <Character   name={data.name} birthYear={data.birth_year} height={data.height} mass={data.mass} homeWorld={data.homeWorld} species={data.species} key={data.name} />
+    <div>
+      {characters.map((character) => <Character
+        name={character.name}
+        birthYear={character.birth_year}
+        height={character.height}
+        mass={character.mass}
+        homeWorldName={character.homeWorldName}
+        species={character.species}
+        key={character.name} />
       )}
     </div>
   )
