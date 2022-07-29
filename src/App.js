@@ -1,49 +1,29 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import CharacterList from "./Components/CharacterList";
-import { fetchPeople } from "./Services/fetchPeople";
+import { useReducer } from 'react';
+import CharacterList from './Components/CharacterList';
+import { useCharacters } from './services/fetchCharacters';
 
-const Default_Species = "Human";
+export default function App() {
+	// I acually havent used reducers yet, unsure if this is the optimal way of handling page switches but it's an interesting way to do it nonetheless
+	const [page, setPage] = useReducer((state, action) => {
+		switch (action) {
+			case 'prev':
+				return Math.max(1, state - 1);
+			case 'next':
+				return state + 1;
+			default:
+				throw new Error(`Invalid page action: ${action}`);
+		}
+	}, 1);
 
-const App = () => {
-  const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1);
+	// Call our custom hook to get the characters, find source in src\services\fetchCharacters.js
+	const [characters] = useCharacters(page);
 
-  const goBackOnePage = () => {
-    setPage(Math.max(1, page - 1));
-  };
-
-  const goForwardOnePage = () => {
-    setPage(page + 1);
-  };
-
-  const fetchAuxilaryDataForPerson = async (person) => {
-    const [homeWorldName, species] = await Promise.all([
-      axios.get(person.homeworld).then(({ data }) => data.name),
-      person.species.length
-        ? axios.get(person.species[0]).then(({ data }) => data.name)
-        : Promise.resolve(Default_Species),
-    ]);
-    return {
-      ...person,
-      homeWorldName,
-      species,
-    };
-  };
-
-  useEffect(() => {
-    fetchPeople(page)
-      .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
-      .then(setCharacters);
-  }, [page]);
-
-  return (
-    <div>
-      <CharacterList characters={characters} />
-      <button onClick={goBackOnePage}>Back Page</button>
-      <button onClick={goForwardOnePage}>Next Page</button>
-    </div>
-  );
-};
-
-export default App;
+	return (
+		<div>
+			<CharacterList list={characters} />
+			<h4>Real Buttons Below</h4>
+			<button onClick={() => setPage('prev')}>Previous Page</button>
+			<button onClick={() => setPage('next')}>Next Page</button>
+		</div>
+	);
+}
