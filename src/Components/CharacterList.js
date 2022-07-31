@@ -10,7 +10,7 @@ const CharacterList = ({ characters }) => {
           birthYear={character.birth_year}
           height={character.height}
           mass={character.mass}
-          homeWorld={character.homeWorld}
+          homeWorld={character.homeWorldName}
           species={character.species}
           key={character.name}
         />

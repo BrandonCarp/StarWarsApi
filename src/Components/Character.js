@@ -1,37 +1,27 @@
 import React from "react";
 
-const Character = (props) => {
-  // const [homeWorld, setHomeWorld] = useState('');
-  // const [species, setSpecies] = useState('Human');
-  // const [mass, setMass] = useState('NA');
-
-  // const peopleSpecies = async () => {
-  //   if(props.species.length < 1) {
-  //     return species;
-  //   } else {
-  //     const { data } = await axios.get(props.species);
-  //     setSpecies(data.name);
-  //   }
-  //   if(props.mass > 1) {
-  //      setMass(props.mass);
-  //   }
-  // }
-
+const Character = ({ name, birthYear, height, mass, homeWorld, species }) => {
   return (
-    <div>
-      <table>
-        <tbody>
-          <tr>
-            <th>{props.name}</th>
-            <th>{props.birthYear}</th>
-            <th>{props.height}</th>
-            <th>{props.mass}</th>
-            <th>{props.homeWorld}</th>
-            <th>{props.species}</th>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <th>Name</th>
+          <th>Birth Year</th>
+          <th>Height</th>
+          <th>Mass</th>
+          <th>Home World</th>
+          <th>Species</th>
+        </tr>
+        <tr>
+          <th>{name}</th>
+          <th>{birthYear}</th>
+          <th>{height}</th>
+          <th>{mass}</th>
+          <th>{homeWorld}</th>
+          <th>{species}</th>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 

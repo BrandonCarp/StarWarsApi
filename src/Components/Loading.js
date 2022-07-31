@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Loading = () => {
-  return (
-    <img src={"./swloading.gif"} alt="loading" />
-  )
-}
+  return <img src="./loading.gif" alt="loading" />;
+};
 
-export default Loading
+export default Loading;
