@@ -1,10 +1,10 @@
-import axios from "axios";
+// import axios from "axios";
 
-const SW_API_BASE_URL = process.env.SW_API_BASE_URL ?? "https://swapi.dev";
+// const SW_API_BASE_URL =
+//   process.env.SW_API_BASE_URL ?? `https://swapi.dev/api/people/?page=1`;
 
-export const fetchPeople = async (page = 1) => {
-  const { data } = await axios.get(
-    `${SW_API_BASE_URL}/api/people/?page=${page}`
-  );
-  return data.results;
-};
+// export const fetchPeople = async (currentPage) => {
+//   const { data } = await axios.get(`${currentPage}`);
+//   console.log(data);
+//   return data.results;
+// };

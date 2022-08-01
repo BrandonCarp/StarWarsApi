@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CharacterList from "./Components/CharacterList";
-import { fetchPeople } from "./Services/fetchPeople";
 import SearchBar from "./Components/SearchBar";
 import loadingGif from "./Components/loading.gif";
 
@@ -9,15 +8,26 @@ const Default_Species = "Human";
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    "https://swapi.dev/api/people/?page=1"
+  );
+  const [nextPage, setNextPage] = useState("");
+  const [previousPage, setPreviousPage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const goBackOnePage = () => {
-    setPage(Math.max(1, page - 1));
+  const goToPreviousPage = () => {
+    setCurrentPage(previousPage);
   };
 
-  const goForwardOnePage = () => {
-    setPage(page + 1);
+  const goToNextPage = () => {
+    setCurrentPage(nextPage);
+  };
+
+  const fetchPeople = async (currentPage) => {
+    const { data } = await axios.get(currentPage);
+    setNextPage(data.next);
+    setPreviousPage(data.previous);
+    return data.results;
   };
 
   const fetchAuxilaryDataForPerson = async (person) => {
@@ -37,10 +47,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchPeople(page)
+    fetchPeople(currentPage)
       .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
       .then(setCharacters);
-  }, [page]);
+  }, [currentPage]);
 
   return (
     <div>
@@ -55,8 +65,8 @@ const App = () => {
         <CharacterList characters={characters} />
       )}
       {/* <CharacterList characters={characters} /> */}
-      <button onClick={goBackOnePage}>Back Page</button>
-      <button onClick={goForwardOnePage}>Next Page</button>
+      <button onClick={goToPreviousPage}>Back Page</button>
+      <button onClick={goToNextPage}>Next Page</button>
     </div>
   );
 };
