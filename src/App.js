@@ -14,6 +14,7 @@ const App = () => {
   const [nextPage, setNextPage] = useState("");
   const [previousPage, setPreviousPage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [searchedCharacter, setSearchedCharacter] = useState("");
 
   const goToPreviousPage = () => {
     setCurrentPage(previousPage);
@@ -64,7 +65,6 @@ const App = () => {
       ) : (
         <CharacterList characters={characters} />
       )}
-      {/* <CharacterList characters={characters} /> */}
       <button onClick={goToPreviousPage}>Back Page</button>
       <button onClick={goToNextPage}>Next Page</button>
     </div>

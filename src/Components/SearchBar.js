@@ -1,23 +1,21 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { fetchSearch } from "../Services/fetchSearch";
-
+import SearchedCharacter from "./SearchedCharacter";
 // lift the state up of what i search here, insert the search link similar to how done on fetchPeople. Then use fetchauxilarydata for each search
 
-const SearchBar = () => {
+const SearchBar = ({ findSearch }) => {
   const [personSearch, setPersonSearch] = useState("");
-  const [searchedCharacter, setSearchedCharacter] = useState([]);
+  const [foundPerson, setFoundperson] = useState([]);
 
   const Default_Species = "Human";
 
-  const fetchAuxilaryDataForSearchedPerson = async (person) => {
+  const fetchAuxilaryDataForPerson = async (person) => {
     const [homeWorldName, species] = await Promise.all([
       axios.get(person.homeworld).then(({ data }) => data.name),
       person.species.length
-        ? axios.get(person.species[0].then(({ data }) => data.name))
+        ? axios.get(person.species[0]).then(({ data }) => data.name)
         : Promise.resolve(Default_Species),
     ]);
-    console.log(person);
     return {
       ...person,
       homeWorldName,
@@ -25,19 +23,31 @@ const SearchBar = () => {
     };
   };
 
-  const submitSearch = async (e) => {
-    e.preventDefault();
-
-    const searchData = fetchSearch(personSearch);
-    await fetchAuxilaryDataForSearchedPerson(searchData).then(
-      setSearchedCharacter
+  const findCharacter = async () => {
+    const data = await axios.get(
+      `https://swapi.dev/api/people/?search=${personSearch}`
     );
+    // setFoundperson(data.data.results[0]);
+    return data.data.results[0];
+  };
+
+  // fetchPeople(currentPage)
+  // .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
+  // .then(setCharacters);
+
+  const submitSearch = (e) => {
+    e.preventDefault();
+    findCharacter(personSearch)
+      .then(fetchAuxilaryDataForPerson)
+      .then(setFoundperson);
+
+    console.log(foundPerson);
+
+    clearForm(e);
   };
 
   const clearForm = (e) => {
     e.preventDefault();
-
-    console.log(searchedCharacter);
   };
 
   return (
@@ -49,8 +59,8 @@ const SearchBar = () => {
         onChange={(e) => setPersonSearch(e.target.value)}
         placeholder="Try Searching Han Solo"
       />
-      <button onClick={clearForm}>Search</button>
-      <h1>{searchedCharacter}</h1>
+      <button>Search</button>
+      <SearchedCharacter foundPerson={foundPerson} />
     </form>
   );
 };
