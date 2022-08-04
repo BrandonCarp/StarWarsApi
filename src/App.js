@@ -14,7 +14,6 @@ const App = () => {
   const [nextPage, setNextPage] = useState("");
   const [previousPage, setPreviousPage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [searchedCharacter, setSearchedCharacter] = useState("");
 
   const goToPreviousPage = () => {
     setCurrentPage(previousPage);
@@ -31,6 +30,13 @@ const App = () => {
     return data.results;
   };
 
+  const loadingTimer = () => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  };
+
   const fetchAuxilaryDataForPerson = async (person) => {
     setIsLoading(true);
     const [homeWorldName, species] = await Promise.all([
@@ -39,7 +45,8 @@ const App = () => {
         ? axios.get(person.species[0]).then(({ data }) => data.name)
         : Promise.resolve(Default_Species),
     ]);
-    setIsLoading(false);
+    // setIsLoading(false);
+    loadingTimer();
     return {
       ...person,
       homeWorldName,
@@ -58,7 +65,7 @@ const App = () => {
       <SearchBar />
       {isLoading ? (
         <img
-          style={{ height: "150px", width: "150px" }}
+          style={{ height: "100px", width: "100px" }}
           src={loadingGif}
           alt="loading..."
         />
