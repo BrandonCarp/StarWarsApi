@@ -4,7 +4,7 @@ const Character = ({ name, birthYear, height, mass, homeWorld, species }) => {
   return (
     <table>
       <tbody>
-        <tr>
+        <tr className="">
           <th>Name</th>
           <th>Birth Year</th>
           <th>Height</th>

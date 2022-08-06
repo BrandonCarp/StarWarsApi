@@ -52,14 +52,14 @@ const SearchBar = ({ findSearch }) => {
 
   return (
     <form onSubmit={submitSearch}>
-      <h3>Search Your Favorite Star Wars Character</h3>
       <input
+        className="rounded"
         type="text"
         value={personSearch}
         onChange={(e) => setPersonSearch(e.target.value)}
         placeholder="Try Searching Han Solo"
       />
-      <button>Search</button>
+      <button className="btn-primary">Search</button>
       <SearchedCharacter foundPerson={foundPerson} />
     </form>
   );

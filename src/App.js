@@ -45,7 +45,6 @@ const App = () => {
         ? axios.get(person.species[0]).then(({ data }) => data.name)
         : Promise.resolve(Default_Species),
     ]);
-    // setIsLoading(false);
     loadingTimer();
     return {
       ...person,
@@ -61,17 +60,21 @@ const App = () => {
   }, [currentPage]);
 
   return (
-    <div>
+    <div className="w-full h-screen flex flex-col justify-center bg-zinc-900 text-yellow-300 ">
+      <h1 className="">Starwars Character Lookup</h1>
       <SearchBar />
-      {isLoading ? (
-        <img
-          style={{ height: "100px", width: "100px" }}
-          src={loadingGif}
-          alt="loading..."
-        />
-      ) : (
-        <CharacterList characters={characters} />
-      )}
+      <div>
+        {isLoading ? (
+          <img
+            className="h-5 w-5 rounded-full"
+            src={loadingGif}
+            alt="loading..."
+          />
+        ) : (
+          <CharacterList characters={characters} />
+        )}
+      </div>
+      <p className="text-lg">Test</p>
       <button onClick={goToPreviousPage}>Back Page</button>
       <button onClick={goToNextPage}>Next Page</button>
     </div>
