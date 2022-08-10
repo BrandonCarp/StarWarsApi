@@ -60,23 +60,32 @@ const App = () => {
   }, [currentPage]);
 
   return (
-    <div className="w-full h-screen flex flex-col justify-center bg-zinc-900 text-yellow-300 ">
-      <h1 className="">Starwars Character Lookup</h1>
-      <SearchBar />
-      <div>
-        {isLoading ? (
-          <img
-            className="h-5 w-5 rounded-full"
-            src={loadingGif}
-            alt="loading..."
-          />
-        ) : (
-          <CharacterList characters={characters} />
-        )}
+    <div className="container flex flex-col items-center mx-auto mt-10">
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="mb-5 text-6xl font-bold">StarWars</h1>
+        <SearchBar />
+        <div>
+          {isLoading ? (
+            <img className="" src={loadingGif} alt="loading..." />
+          ) : (
+            <CharacterList characters={characters} />
+          )}
+        </div>
+        <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
+          <button
+            className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
+            onClick={goToPreviousPage}
+          >
+            Previous Page
+          </button>
+          <button
+            className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline mb-5 md:mb-0 hover:bg-spaceBlack hover:text-starYellow"
+            onClick={goToNextPage}
+          >
+            Next Page
+          </button>
+        </div>
       </div>
-      <p className="text-lg">Test</p>
-      <button onClick={goToPreviousPage}>Back Page</button>
-      <button onClick={goToNextPage}>Next Page</button>
     </div>
   );
 };

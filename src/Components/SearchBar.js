@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import SearchedCharacter from "./SearchedCharacter";
-// lift the state up of what i search here, insert the search link similar to how done on fetchPeople. Then use fetchauxilarydata for each search
 
-const SearchBar = ({ findSearch }) => {
+const SearchBar = () => {
   const [personSearch, setPersonSearch] = useState("");
   const [foundPerson, setFoundperson] = useState([]);
 
@@ -27,13 +26,9 @@ const SearchBar = ({ findSearch }) => {
     const data = await axios.get(
       `https://swapi.dev/api/people/?search=${personSearch}`
     );
-    // setFoundperson(data.data.results[0]);
+
     return data.data.results[0];
   };
-
-  // fetchPeople(currentPage)
-  // .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
-  // .then(setCharacters);
 
   const submitSearch = (e) => {
     e.preventDefault();
@@ -51,15 +46,19 @@ const SearchBar = ({ findSearch }) => {
   };
 
   return (
-    <form onSubmit={submitSearch}>
-      <input
-        className="rounded"
-        type="text"
-        value={personSearch}
-        onChange={(e) => setPersonSearch(e.target.value)}
-        placeholder="Try Searching Han Solo"
-      />
-      <button className="btn-primary">Search</button>
+    <form onSubmit={submitSearch} className="">
+      <div className="ml-20 mb-2 ">
+        <input
+          className="ml-6 bg-starYellow rounded text-spaceBlack font-bold border-2 border-spaceBlack"
+          type="text"
+          value={personSearch}
+          onChange={(e) => setPersonSearch(e.target.value)}
+          placeholder="Try Searching Han Solo"
+        />
+        <button className="ml-3 bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline md:mb-0 hover:bg-spaceBlack hover:text-starYellow">
+          Search
+        </button>
+      </div>
       <SearchedCharacter foundPerson={foundPerson} />
     </form>
   );
