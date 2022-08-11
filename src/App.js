@@ -3,8 +3,18 @@ import axios from "axios";
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
 import loadingGif from "./Components/loading.gif";
+import mainTheme from "./Components/Assets/mainTheme.mp3";
 
 const Default_Species = "Human";
+
+const theme = () => {
+  const playTheme = setTimeout(() => {
+    new Audio(mainTheme).play();
+  }, 10000);
+  return () => clearTimeout(playTheme);
+};
+
+theme();
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
@@ -60,13 +70,19 @@ const App = () => {
   }, [currentPage]);
 
   return (
-    <div className="container flex flex-col items-center mx-auto mt-10">
+    <div className="h-screen text-white container flex flex-col items-center mx-auto  justify-center ">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="mb-5 text-6xl font-bold">StarWars</h1>
+        <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
+          StarWars
+        </h1>
         <SearchBar />
         <div>
           {isLoading ? (
-            <img className="" src={loadingGif} alt="loading..." />
+            <img
+              className="w-10 h-10 rounded-full"
+              src={loadingGif}
+              alt="loading..."
+            />
           ) : (
             <CharacterList characters={characters} />
           )}
