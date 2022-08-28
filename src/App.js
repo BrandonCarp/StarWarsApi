@@ -8,13 +8,8 @@ import mainTheme from "./Components/Assets/mainTheme.mp3";
 const Default_Species = "Human";
 
 const theme = () => {
-  const playTheme = setTimeout(() => {
-    new Audio(mainTheme).play();
-  }, 10000);
-  return () => clearTimeout(playTheme);
+  new Audio(mainTheme).play();
 };
-
-theme();
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
@@ -71,6 +66,12 @@ const App = () => {
 
   return (
     <div className="h-screen text-white container flex flex-col items-center mx-auto  justify-center ">
+      <button
+        onClick={theme}
+        className="bg-starYellow rounded-full px-4 py-1 text-spaceBlack font-bold absolute top-0 right-0 mt-10 mr-10"
+      >
+        Theme Song
+      </button>
       <div className="flex flex-col items-center justify-center">
         <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
           StarWars
