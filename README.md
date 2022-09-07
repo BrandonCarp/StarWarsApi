@@ -1,10 +1,11 @@
 # Swapi App
-My Vanila Js Snake Game app
+My StarWars API Application
 <br>
-![snakePhoto](https://user-images.githubusercontent.com/69767056/131734652-a7d7dc25-6500-4d29-ba51-d53f754e1738.png)
+![swapiApp](https://user-images.githubusercontent.com/69767056/188934152-04e23d86-e321-4288-acdc-a0e288b62cef.jpg)
+
 
 <h1>Summary</h1>
-This is a  vanilla JS Snake Game App. Made during my Software Development Mastermind program.
+This is a react application styled with tailwind.css meant for desktop use.
 
 <h1>Author</h1>
-• Brandon Carpenter - Aspiring Full-Stack Software Developer
+• Brandon Carpenter - Front End Software Developer
