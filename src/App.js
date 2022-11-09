@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
@@ -7,9 +7,7 @@ import mainTheme from "./Components/Assets/mainTheme.mp3";
 
 const Default_Species = "Human";
 
-const theme = () => {
-  new Audio(mainTheme).play();
-};
+
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
@@ -19,6 +17,19 @@ const App = () => {
   const [nextPage, setNextPage] = useState("");
   const [previousPage, setPreviousPage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+ const [music, setMusic] = useState(false);
+
+const audioRef = useRef(new Audio(mainTheme));
+
+const theme = () => {
+  if(music) {
+    setMusic(false);
+    audioRef.current.pause();
+  } else {
+    setMusic(true);
+    audioRef.current.play();
+  }
+};
 
   const goToPreviousPage = () => {
     setCurrentPage(previousPage);
