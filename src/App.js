@@ -18,11 +18,11 @@ const App = () => {
   const [previousPage, setPreviousPage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   // use data to pass into things. Get away from using above state for api call data
-  const { data } = useQuery([{}], () => {
+  const { data } = useQuery(["post"], () => {
     fetchPeople(currentPage)
       .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
       .then(setCharacters);
-    console.log(data);
+  
   });
 
   const goToPreviousPage = () => {
