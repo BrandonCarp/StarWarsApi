@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
 import loadingGif from "./Components/loading.gif";
-import mainTheme from "./Components/Assets/mainTheme.mp3";
+import { ThemeBtn } from "./Components/ThemeBtn";
+
+import { useQuery } from "@tanstack/react-query";
 
 const Default_Species = "Human";
-
-
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
@@ -17,19 +17,13 @@ const App = () => {
   const [nextPage, setNextPage] = useState("");
   const [previousPage, setPreviousPage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
- const [music, setMusic] = useState(false);
-
-const audioRef = useRef(new Audio(mainTheme));
-
-const theme = () => {
-  if(music) {
-    setMusic(false);
-    audioRef.current.pause();
-  } else {
-    setMusic(true);
-    audioRef.current.play();
-  }
-};
+  // use data to pass into things. Get away from using above state for api call data
+  const { data } = useQuery([{}], () => {
+    fetchPeople(currentPage)
+      .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
+      .then(setCharacters);
+    console.log(data);
+  });
 
   const goToPreviousPage = () => {
     setCurrentPage(previousPage);
@@ -69,20 +63,15 @@ const theme = () => {
     };
   };
 
-  useEffect(() => {
-    fetchPeople(currentPage)
-      .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
-      .then(setCharacters);
-  }, [currentPage]);
+  // useEffect(() => {
+  //   fetchPeople(currentPage)
+  //     .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
+  //     .then(setCharacters);
+  // }, [currentPage]);
 
   return (
     <div className="h-screen text-white container flex flex-col items-center mx-auto  justify-center ">
-      <button
-        onClick={theme}
-        className="bg-starYellow rounded-full px-4 py-1 text-spaceBlack font-bold absolute top-0 right-0 mt-10 mr-10"
-      >
-        Theme Song
-      </button>
+      <ThemeBtn />
       <div className="flex flex-col items-center justify-center">
         <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
           StarWars
