@@ -16,14 +16,14 @@ const App = () => {
   );
   const [nextPage, setNextPage] = useState("");
   const [previousPage, setPreviousPage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
   // use data to pass into things. Get away from using above state for api call data
-  const { data } = useQuery(["post"], () => {
+  const { isLoading, error, data } = useQuery(["post"], () => {
     fetchPeople(currentPage)
       .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
       .then(setCharacters);
   
-  });
+}, [currentPage]);
 
   const goToPreviousPage = () => {
     setCurrentPage(previousPage);
@@ -40,22 +40,16 @@ const App = () => {
     return data.results;
   };
 
-  const loadingTimer = () => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  };
+
 
   const fetchAuxilaryDataForPerson = async (person) => {
-    setIsLoading(true);
+    
     const [homeWorldName, species] = await Promise.all([
       axios.get(person.homeworld).then(({ data }) => data.name),
       person.species.length
         ? axios.get(person.species[0]).then(({ data }) => data.name)
         : Promise.resolve(Default_Species),
     ]);
-    loadingTimer();
     return {
       ...person,
       homeWorldName,
@@ -68,6 +62,10 @@ const App = () => {
   //     .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
   //     .then(setCharacters);
   // }, [currentPage]);
+ 
+
+
+  
 
   return (
     <div className="h-screen text-white container flex flex-col items-center mx-auto  justify-center ">
@@ -78,15 +76,9 @@ const App = () => {
         </h1>
         <SearchBar />
         <div>
-          {isLoading ? (
-            <img
-              className="w-10 h-10 rounded-full"
-              src={loadingGif}
-              alt="loading..."
-            />
-          ) : (
+          
             <CharacterList characters={characters} />
-          )}
+          
         </div>
         <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
           <button
