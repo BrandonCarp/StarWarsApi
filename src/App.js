@@ -17,45 +17,55 @@ const App = () => {
   const [nextPage, setNextPage] = useState("");
   const [previousPage, setPreviousPage] = useState("");
 
+  // Create individual functions that make fetch calls
+
+  const fetchCharacters = (currentPage) => {
+      return axios.get(currentPage);
+  }
+
+  const {data} = useQuery([`${currentPage}`, currentPage], () => 
+  fetchCharacters(currentPage)
+  )
+
   // use data to pass into things. Get away from using above state for api call data
-  const { isLoading, error, data } = useQuery(["post"], () => {
-    fetchPeople(currentPage)
-      .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
-      .then(setCharacters);
+//   const { data } = useQuery(["post"], () => {
+//     fetchPeople(currentPage)
+//       .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
+//       .then(setCharacters);
   
-}, [currentPage]);
+// }, [currentPage]);
 
-  const goToPreviousPage = () => {
-    setCurrentPage(previousPage);
-  };
+//   const goToPreviousPage = () => {
+//     setCurrentPage(previousPage);
+//   };
 
-  const goToNextPage = () => {
-    setCurrentPage(nextPage);
-  };
+//   const goToNextPage = () => {
+//     setCurrentPage(nextPage);
+//   };
 
-  const fetchPeople = async (currentPage) => {
-    const { data } = await axios.get(currentPage);
-    setNextPage(data.next);
-    setPreviousPage(data.previous);
-    return data.results;
-  };
+//   const fetchPeople = async (currentPage) => {
+//     const { data } = await axios.get(currentPage);
+//     setNextPage(data.next);
+//     setPreviousPage(data.previous);
+//     return data.results;
+//   };
 
 
 
-  const fetchAuxilaryDataForPerson = async (person) => {
+  // const fetchAuxilaryDataForPerson = async (person) => {
     
-    const [homeWorldName, species] = await Promise.all([
-      axios.get(person.homeworld).then(({ data }) => data.name),
-      person.species.length
-        ? axios.get(person.species[0]).then(({ data }) => data.name)
-        : Promise.resolve(Default_Species),
-    ]);
-    return {
-      ...person,
-      homeWorldName,
-      species,
-    };
-  };
+  //   const [homeWorldName, species] = await Promise.all([
+  //     axios.get(person.homeworld).then(({ data }) => data.name),
+  //     person.species.length
+  //       ? axios.get(person.species[0]).then(({ data }) => data.name)
+  //       : Promise.resolve(Default_Species),
+  //   ]);
+  //   return {
+  //     ...person,
+  //     homeWorldName,
+  //     species,
+  //   };
+  // };
 
   // useEffect(() => {
   //   fetchPeople(currentPage)
@@ -74,7 +84,7 @@ const App = () => {
         <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
           StarWars
         </h1>
-        <SearchBar />
+        {/* <SearchBar /> */}
         <div>
           
             <CharacterList characters={characters} />
@@ -83,13 +93,13 @@ const App = () => {
         <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
-            onClick={goToPreviousPage}
+            onClick={() => console.log('hi')}
           >
             Previous Page
           </button>
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline mb-5 md:mb-0 hover:bg-spaceBlack hover:text-starYellow"
-            onClick={goToNextPage}
+            onClick={() => console.log('hi')}
           >
             Next Page
           </button>
