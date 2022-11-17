@@ -10,12 +10,12 @@ import { useQuery } from "@tanstack/react-query";
 const Default_Species = "Human";
 
 const App = () => {
-  const [characters, setCharacters] = useState([]);
+  // const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(
     "https://swapi.dev/api/people/?page=1"
   );
-  const [nextPage, setNextPage] = useState("");
-  const [previousPage, setPreviousPage] = useState("");
+  // const [nextPage, setNextPage] = useState("");
+  // const [previousPage, setPreviousPage] = useState("");
 
   // Create individual functions that make fetch calls
 
@@ -23,9 +23,21 @@ const App = () => {
       return axios.get(currentPage);
   }
 
-  const {data} = useQuery([`${currentPage}`, currentPage], () => 
+  const {data: character} = useQuery([`${currentPage}`,currentPage], () => 
   fetchCharacters(currentPage)
   )
+  const next = character?.data.next;
+  const previous = character?.data.previous;  
+
+  const nextPage = (page) => {
+      if(page === null || undefined) {
+       
+      } else {
+        setCurrentPage(page)
+      }
+  }
+
+ 
 
   // use data to pass into things. Get away from using above state for api call data
 //   const { data } = useQuery(["post"], () => {
@@ -35,13 +47,7 @@ const App = () => {
   
 // }, [currentPage]);
 
-//   const goToPreviousPage = () => {
-//     setCurrentPage(previousPage);
-//   };
 
-//   const goToNextPage = () => {
-//     setCurrentPage(nextPage);
-//   };
 
 //   const fetchPeople = async (currentPage) => {
 //     const { data } = await axios.get(currentPage);
@@ -87,19 +93,20 @@ const App = () => {
         {/* <SearchBar /> */}
         <div>
           
-            <CharacterList characters={characters} />
+            {/* <CharacterList characters={characters} /> */}
           
         </div>
         <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => console.log('hi')}
+            onClick={() => nextPage(previous)}
           >
             Previous Page
           </button>
+          <button onClick={() => console.log(currentPage)}>Test Button</button>
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline mb-5 md:mb-0 hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => console.log('hi')}
+            onClick={() => nextPage(next)}
           >
             Next Page
           </button>
