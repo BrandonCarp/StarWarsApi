@@ -33,19 +33,18 @@ const App = () => {
 
   const fetchPeople = async (currentPage) => {
     const { data } = await axios.get(currentPage);
-  
    
-    
     return data.results;
   };
 
   const nextPage = (page) => {
-   
     if (page === null || undefined) {
+      console.log('test 2')
     } else {
       setCurrentPage(page);
     }
   };
+
 
   const fetchAuxilaryDataForPerson = async (person) => {
     const [homeWorldName, species] = await Promise.all([
