@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
-import loadingGif from "./Components/loading.gif";
+import loadingGif from "./Components/loading.gif"
 import { ThemeBtn } from "./Components/ThemeBtn";
 
 import { useQuery } from "@tanstack/react-query";
@@ -14,30 +14,33 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(
     "https://swapi.dev/api/people/?page=1"
   );
+  const [next, setNext] = useState('');
+  const [previous, setPrevious] = useState('');
 
-  // Create individual functions that make fetch calls
-  // Initial Call
-  const { data: character } = useQuery([`fetch-characters`, currentPage], () =>
+  
+
+  const { isLoading, data: character } = useQuery([`fetch-characters`, currentPage], () =>
     fetchCharacters(currentPage)
   );
 
-  const next = character?.data.next;
-  const previous = character?.data.previous;
 
   const fetchCharacters = (currentPage) => {
-    fetchPeople(currentPage).then((people) =>
+   const characters = fetchPeople(currentPage).then((people) =>
       Promise.all(people.map(fetchAuxilaryDataForPerson))
     );
-    return;
+    return characters;
   };
 
   const fetchPeople = async (currentPage) => {
     const { data } = await axios.get(currentPage);
-
+  
+   
+    
     return data.results;
   };
 
   const nextPage = (page) => {
+   
     if (page === null || undefined) {
     } else {
       setCurrentPage(page);
@@ -58,40 +61,26 @@ const App = () => {
     };
   };
 
-  // useEffect(() => {
-  //   fetchPeople(currentPage)
-  //     .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
-  //     .then(setCharacters);
-  // }, [currentPage]);
-
-  //   const fetchPeople = async (currentPage) => {
-  //     const { data } = await axios.get(currentPage);
-  //     setNextPage(data.next);
-  //     setPreviousPage(data.previous);
-  //     return data.results;
-  //   };
-
-  // useEffect(() => {
-  //   fetchPeople(currentPage)
-  //     .then((people) => Promise.all(people.map(fetchAuxilaryDataForPerson)))
-  //     .then(setCharacters);
-  // }, [currentPage]);
+ 
 
   return (
-    <div className="h-screen text-white container flex flex-col items-center mx-auto  justify-center ">
+    <div className="relative mx-auto container">
+
+    
+    <div className=" text-white container flex flex-col items-center mx-auto  justify-center ">
       <ThemeBtn />
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
-          StarWars
-        </h1>
-        {/* <SearchBar /> */}
-        <div>{/* <CharacterList characters={characters} /> */}</div>
-        <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
-          <button
-            className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => nextPage(previous)}
+      <button
+            style={{
+              color: "black",
+              background: "yellow",
+              borderRadius: "10px",
+              padding: "10px",
+              
+              
+            }}
+            onClick={() => nextPage(next)}
           >
-            Previous Page
+            Next
           </button>
           <button
             style={{
@@ -99,11 +88,28 @@ const App = () => {
               background: "yellow",
               borderRadius: "10px",
               padding: "10px",
+              
+              
             }}
-            onClick={() => console.log(character)}
+            onClick={() => nextPage(previous)}
           >
-            Test Button
+            Prev
           </button>
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
+          StarWars
+        </h1>
+        <SearchBar />
+        
+        <div>{isLoading ? <h1>Going into lightspeed...</h1> : <CharacterList characters={character} />}</div>
+        <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
+          <button
+            className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
+            onClick={() => nextPage(previous)}
+          >
+            Previous Page
+          </button>
+         
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline mb-5 md:mb-0 hover:bg-spaceBlack hover:text-starYellow"
             onClick={() => nextPage(next)}
@@ -112,6 +118,7 @@ const App = () => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
