@@ -17,7 +17,7 @@ const App = () => {
 
   // Create individual functions that make fetch calls
   // Initial Call
-  const { data: character } = useQuery([`${currentPage}`, currentPage], () =>
+  const { data: character } = useQuery([`fetch-characters`, currentPage], () =>
     fetchCharacters(currentPage)
   );
 
@@ -25,7 +25,16 @@ const App = () => {
   const previous = character?.data.previous;
 
   const fetchCharacters = (currentPage) => {
-    return axios.get(currentPage);
+    fetchPeople(currentPage).then((people) =>
+      Promise.all(people.map(fetchAuxilaryDataForPerson))
+    );
+    return;
+  };
+
+  const fetchPeople = async (currentPage) => {
+    const { data } = await axios.get(currentPage);
+
+    return data.results;
   };
 
   const nextPage = (page) => {
@@ -35,23 +44,19 @@ const App = () => {
     }
   };
 
-  // const { data: characterData } = useQuery([`${character}`, character], () => {
-  //   fetchAuxilaryDataForPerson(character), { enabled: !!next };
-  // });
-
-  // const fetchAuxilaryDataForPerson = async (person) => {
-  //   const [homeWorldName, species] = await Promise.all([
-  //     axios.get(person.homeworld).then(({ data }) => data.name),
-  //     person.species.length
-  //       ? axios.get(person.species[0]).then(({ data }) => data.name)
-  //       : Promise.resolve(Default_Species),
-  //   ]);
-  //   return {
-  //     ...person,
-  //     homeWorldName,
-  //     species,
-  //   };
-  // };
+  const fetchAuxilaryDataForPerson = async (person) => {
+    const [homeWorldName, species] = await Promise.all([
+      axios.get(person.homeworld).then(({ data }) => data.name),
+      person.species.length
+        ? axios.get(person.species[0]).then(({ data }) => data.name)
+        : Promise.resolve(Default_Species),
+    ]);
+    return {
+      ...person,
+      homeWorldName,
+      species,
+    };
+  };
 
   // useEffect(() => {
   //   fetchPeople(currentPage)
