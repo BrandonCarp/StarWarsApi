@@ -56,32 +56,7 @@ const App = () => {
     
     <div className=" text-white container flex flex-col items-center mx-auto  justify-center ">
       <ThemeBtn />
-      <button
-            style={{
-              color: "black",
-              background: "yellow",
-              borderRadius: "10px",
-              padding: "10px",
-              
-              
-            }}
-            onClick={() => setPageNumber(pageNumber + 1)} disabled={pageNumber === 9}
-          >
-            Next
-          </button>
-          <button
-            style={{
-              color: "black",
-              background: "yellow",
-              borderRadius: "10px",
-              padding: "10px",
-              
-              
-            }}
-            onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}
-          >
-            Prev
-          </button>
+      
       <div className="flex flex-col items-center justify-center">
         <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
           StarWars
@@ -90,9 +65,9 @@ const App = () => {
         
         <div>{isLoading ? <h1>Going into lightspeed...</h1> : <CharacterList characters={character} />}</div>
         <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
-          <button
+        <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => setPageNumber(pageNumber - 1)}
+            onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}
           >
             Previous Page
           </button>
@@ -100,6 +75,7 @@ const App = () => {
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline mb-5 md:mb-0 hover:bg-spaceBlack hover:text-starYellow"
             onClick={() => setPageNumber(pageNumber + 1)}
+            disabled={pageNumber === 9}
           >
             Next Page
           </button>
