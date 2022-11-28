@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
-import loadingGif from "./Components/loading.gif"
 import { ThemeBtn } from "./Components/ThemeBtn";
 
 import { useQuery } from "@tanstack/react-query";
@@ -10,39 +9,28 @@ import { useQuery } from "@tanstack/react-query";
 const Default_Species = "Human";
 
 const App = () => {
-  const [characters, setCharacters] = useState([]);
-  const [currentPage, setCurrentPage] = useState(
-    "https://swapi.dev/api/people/?page=1"
-  );
-  const [next, setNext] = useState('');
-  const [previous, setPrevious] = useState('');
+ 
+  const [pageNumber, setPageNumber] = useState(1);
+ 
 
   
 
-  const { isLoading, data: character } = useQuery([`fetch-characters`, currentPage], () =>
-    fetchCharacters(currentPage)
+  const { isLoading, data: character } = useQuery([`fetch-characters`, pageNumber], () =>
+    fetchCharacters(pageNumber)
   );
 
 
-  const fetchCharacters = (currentPage) => {
-   const characters = fetchPeople(currentPage).then((people) =>
+  const fetchCharacters = (pageNumber) => {
+   const characters = fetchPeople(pageNumber).then((people) =>
       Promise.all(people.map(fetchAuxilaryDataForPerson))
     );
     return characters;
   };
 
-  const fetchPeople = async (currentPage) => {
-    const { data } = await axios.get(currentPage);
+  const fetchPeople = async (pageNumber) => {
+    const { data } = await axios.get(`https://swapi.dev/api/people/?page=${pageNumber}`);
    
     return data.results;
-  };
-
-  const nextPage = (page) => {
-    if (page === null || undefined) {
-      console.log('test 2')
-    } else {
-      setCurrentPage(page);
-    }
   };
 
 
@@ -77,7 +65,7 @@ const App = () => {
               
               
             }}
-            onClick={() => nextPage(next)}
+            onClick={() => setPageNumber(pageNumber + 1)} disabled={pageNumber === 9}
           >
             Next
           </button>
@@ -90,7 +78,7 @@ const App = () => {
               
               
             }}
-            onClick={() => nextPage(previous)}
+            onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}
           >
             Prev
           </button>
@@ -104,14 +92,14 @@ const App = () => {
         <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => nextPage(previous)}
+            onClick={() => setPageNumber(pageNumber - 1)}
           >
             Previous Page
           </button>
          
           <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline mb-5 md:mb-0 hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => nextPage(next)}
+            onClick={() => setPageNumber(pageNumber + 1)}
           >
             Next Page
           </button>
