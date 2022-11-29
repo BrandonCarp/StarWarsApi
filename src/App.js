@@ -52,32 +52,22 @@ const App = () => {
 
   return (
     <div className="relative mx-auto container">
-
+  
+    <div className=" text-white flex flex flex-col ">
     
-    <div className=" text-white container flex flex-col items-center mx-auto  justify-center ">
-      <ThemeBtn />
-      <button
-            className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}
-          >
-            Previous Page
-          </button>
-         
-          <button
-            className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline mb-5 md:mb-0 hover:bg-spaceBlack hover:text-starYellow"
-            onClick={() => setPageNumber(pageNumber + 1)}
-            disabled={pageNumber === 9}
-          >
-            Next Page
-          </button>
-      <div className="flex flex-col items-center justify-center">
+     
+      <div className="flex flex-col items-center justify-center ">
+        <div className="">
+        <ThemeBtn />
         <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
           StarWars
         </h1>
+        </div>
+       
         <SearchBar />
         
-        <div>{isLoading ? <h1>Going into lightspeed...</h1> : <CharacterList characters={character} />}</div>
-        <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  ">
+        <div className="">{isLoading ? <h1>Going into lightspeed...</h1> : <CharacterList characters={character} />}</div>
+        <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  mb-10">
         <button
             className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
             onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}
@@ -92,6 +82,7 @@ const App = () => {
           >
             Next Page
           </button>
+          
         </div>
       </div>
     </div>

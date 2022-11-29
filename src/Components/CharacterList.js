@@ -3,7 +3,7 @@ import Character from "./Character";
 
 const CharacterList = ({ characters }) => {
   return (
-    <div>
+    <>
       {characters.map((character) => (
         <Character
           name={character.name}
@@ -15,7 +15,7 @@ const CharacterList = ({ characters }) => {
           key={character.name}
         />
       ))}
-    </div>
+    </>
   );
 };
 
