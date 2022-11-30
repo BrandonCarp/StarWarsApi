@@ -5,7 +5,7 @@ My StarWars API Application
 
 
 <h1>Summary</h1>
-This is a react application styled with tailwind.css meant for desktop use.
+This is a responsive react application, working with rest api. Styled with tailwind.css, and the state is managed with React Query, 
 
 <h1>Author</h1>
 • Brandon Carpenter - Front End Software Developer
