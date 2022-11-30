@@ -2,31 +2,24 @@ import React from "react";
 
 const SearchedCharacter = ({ foundPerson }) => {
   return (
-    <div>
+    <div className="my-10 w-[80%] mx-auto">
       {foundPerson.name ? (
-        <table className="mb-2">
-          <thead className="">
-            <tr className="">
-              <th className="pr-5 md:pr-3">Name</th>
-              <th className="pl-1 md:pr-3">Birth Year</th>
-              <th className="pl-1 ">Height</th>
-              <th className="pl-1 md:pl-3">Mass</th>
-              <th className="pl-1 md:pl-3">Home World</th>
-              <th className="pl-1 md:pl-3">Species</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr className="text-starYellow">
-              <td className="">{foundPerson.name}</td>
-              <td className="pl-4 md:pl-4">{foundPerson.birth_year}</td>
-              <td className="pl-3 md:pl-5">{foundPerson.height}</td>
-              <td className="md:pl-6">{foundPerson.mass}</td>
-              <td className="pl-4 md:pl-8">{foundPerson.homeWorldName}</td>
-              <td className="md:pl-4">{foundPerson.species}</td>
-            </tr>
-          </tbody>
-        </table>
+         <div className="relative mx-auto container mb-5 ">
+         <div className="flex  flex-col  justify-center  items-center bg-starYellow text-black rounded py-3 px-5">
+         <h1 className="font-bold">{foundPerson.name}</h1>
+<div className="">
+ <ul className="flex">
+   <li className="flex flex-col items-center"> <p className="font-bold">Birth Year</p> <p>{foundPerson.birth_year}</p></li>
+   <li className="px-4 font-bold">{foundPerson.species}</li>
+   <li className="flex flex-col items-center"><p className="font-bold">Height</p> <p>{foundPerson.height}</p></li>
+ </ul>
+ <ul className="flex justify-center ">
+   <li className="flex flex-col items-center"><p className="font-bold">Mass</p> <p>{foundPerson.mass}</p></li>
+   <li className="pl-4 flex flex-col items-center"><p className="font-bold">Home World</p> <p>{foundPerson.homeWorldName}</p></li>
+ </ul>
+         </div>
+</div>
+       </div>
       ) : (
         <div> </div>
       )}

@@ -56,16 +56,22 @@ const App = () => {
     <div className=" text-white flex flex flex-col ">
     
      
-      <div className="flex flex-col items-center justify-center ">
-        <div className="">
+      <div className="flex flex-col items-center justify-center mt-5 ">
         <ThemeBtn />
+        <div className="flex flex-col items-center ">
+        
         <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
           StarWars
         </h1>
+       
+          <SearchBar />
+        
+        
         </div>
        
-        <SearchBar />
         
+   
+       
         <div className="">{isLoading ? <h1>Going into lightspeed...</h1> : <CharacterList characters={character} />}</div>
         <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  mb-10">
         <button
