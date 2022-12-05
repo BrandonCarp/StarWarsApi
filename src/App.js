@@ -47,7 +47,7 @@ const App = () => {
 
   return (
     <>
-      <div className="">
+      <div className="relative mx-auto container">
         <div className=" text-white flex flex flex-col ">
           <div className="flex flex-col items-center justify-center mt-5 ">
             <ThemeBtn />
@@ -59,7 +59,7 @@ const App = () => {
               <SearchBar />
             </div>
 
-            <div className="">
+            <div className="relative mx-auto container">
               {isLoading ? (
                 <h1>Going into lightspeed...</h1>
               ) : (
