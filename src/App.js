@@ -47,7 +47,7 @@ const App = () => {
 
   return (
     <>
-      <div className="relative mx-auto container">
+      <div className="">
         <div className=" text-white flex flex flex-col ">
           <div className="flex flex-col items-center justify-center mt-5 ">
             <ThemeBtn />
