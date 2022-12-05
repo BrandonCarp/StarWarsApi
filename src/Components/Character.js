@@ -3,7 +3,7 @@ import React from "react";
 const Character = ({ name, birthYear, height, mass, homeWorld, species }) => {
   return (
     <>
-      <div className="relative mx-auto container  mb-5 w-[80%]">
+      <div className="relative mx-auto container  mb-5 px-10">
         <div className="flex  flex-col  justify-center  items-center bg-starYellow text-black rounded py-3 px-10">
           <h1 className="font-bold">{name}</h1>
           <div className="">
