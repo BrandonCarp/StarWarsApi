@@ -3,11 +3,11 @@ import React from "react";
 const Character = ({ name, birthYear, height, mass, homeWorld, species }) => {
   return (
     <>
-      <div className="relative mx-auto container  mb-5 px-10">
-        <div className="flex  flex-col  justify-center  items-center bg-starYellow text-black rounded py-3 px-10">
+      <div className="relative mx-auto  container w-[80%]  mb-5 ">
+        <div className="flex  flex-col  justify-center  items-center bg-starYellow text-black rounded py-3 ">
           <h1 className="font-bold">{name}</h1>
           <div className="">
-            <ul className="flex">
+            <ul className="flex px-10">
               <li className="flex flex-col items-center">
                 {" "}
                 <p className="font-bold">Birth Year</p> <p>{birthYear}</p>
