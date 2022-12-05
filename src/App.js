@@ -61,7 +61,9 @@ const App = () => {
 
             <div className="relative mx-auto container">
               {isLoading ? (
-                <h1>Going into lightspeed...</h1>
+                <h1 className=" flex items-center justify-center">
+                  Going into lightspeed...
+                </h1>
               ) : (
                 <CharacterList characters={character} />
               )}
