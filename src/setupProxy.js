@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "https://swapi.dev",
     createProxyMiddleware({
-      target: "http://localhost:7071",
+      target: "https://localhost:7002",
       changeOrigin: true,
       secure: false,
     })
