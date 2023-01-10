@@ -24,9 +24,7 @@ const App = () => {
   };
 
   const fetchPeople = async (pageNumber) => {
-    const { data } = await axios.get(
-      `https://swapi.dev/api/people/?page=${pageNumber}`
-    );
+    const { data } = await axios.get(`/api/people/?page=${pageNumber}`);
 
     return data.results;
   };
@@ -63,7 +61,7 @@ const App = () => {
             "
           >
             {isLoading ? (
-              <h1 className="flex justify-center">Going into lightspeed...</h1>
+              <h1 className="flex justify-center">Loading...</h1>
             ) : (
               <CharacterList characters={character} />
             )}
