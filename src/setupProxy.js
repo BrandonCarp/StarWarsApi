@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "https://swapi.dev",
     createProxyMiddleware({
-      target: "https://localhost:5000",
+      target: "https://starwarsreactapi.netlify.app/",
       changeOrigin: true,
     })
   );
