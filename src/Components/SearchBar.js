@@ -23,9 +23,7 @@ const SearchBar = () => {
   };
 
   const findCharacter = async () => {
-    const data = await axios.get(
-      `https://swapi.dev/api/people/?search=${personSearch}`
-    );
+    const data = await axios.get(`/api/people/?search=${personSearch}`);
 
     return data.data.results[0];
   };
@@ -35,8 +33,6 @@ const SearchBar = () => {
     findCharacter(personSearch)
       .then(fetchAuxilaryDataForPerson)
       .then(setFoundperson);
-
-    console.log(foundPerson);
 
     clearForm(e);
   };
