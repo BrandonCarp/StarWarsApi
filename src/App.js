@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {api} from './lib/api';
+import { api } from "./lib/api";
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
 import { ThemeBtn } from "./Components/ThemeBtn";
@@ -10,6 +10,7 @@ const Default_Species = "Human";
 
 const App = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  // const [warning, setWarning] = useState(true);
 
   const { isLoading, data: character } = useQuery(
     [`fetch-characters`, pageNumber],
@@ -52,6 +53,9 @@ const App = () => {
             <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
               StarWars
             </h1>
+            <div className="bg-white m-10">
+              <h1 className="text-black absolute">hi</h1>
+            </div>
 
             <SearchBar />
           </div>
