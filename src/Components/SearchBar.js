@@ -1,4 +1,4 @@
-import axios from "axios";
+import {api} from '../lib/api';
 import React, { useState } from "react";
 import SearchedCharacter from "./SearchedCharacter";
 
@@ -10,9 +10,9 @@ const SearchBar = () => {
 
   const fetchAuxilaryDataForPerson = async (person) => {
     const [homeWorldName, species] = await Promise.all([
-      axios.get(person.homeworld).then(({ data }) => data.name),
+      api.get(person.homeworld).then(({ data }) => data.name),
       person.species.length
-        ? axios.get(person.species[0]).then(({ data }) => data.name)
+        ? api.get(person.species[0]).then(({ data }) => data.name)
         : Promise.resolve(Default_Species),
     ]);
     return {
@@ -23,7 +23,7 @@ const SearchBar = () => {
   };
 
   const findCharacter = async () => {
-    const data = await axios.get(`/api/people/?search=${personSearch}`);
+    const data = await api.get(`/api/people/?search=${personSearch}`);
 
     return data.data.results[0];
   };

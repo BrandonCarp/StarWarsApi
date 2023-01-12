@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import {api} from './lib/api';
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
 import { ThemeBtn } from "./Components/ThemeBtn";
@@ -15,7 +15,7 @@ const App = () => {
     [`fetch-characters`, pageNumber],
     () => fetchCharacters(pageNumber)
   );
- 
+
   const fetchCharacters = (pageNumber) => {
     const characters = fetchPeople(pageNumber).then((people) =>
       Promise.all(people.map(fetchAuxilaryDataForPerson))
@@ -24,16 +24,16 @@ const App = () => {
   };
 
   const fetchPeople = async (pageNumber) => {
-    const { data } = await axios.get(`/api/people/?page=${pageNumber}`);
+    const { data } = await api.get(`/api/people/?page=${pageNumber}`);
 
     return data.results;
   };
 
   const fetchAuxilaryDataForPerson = async (person) => {
     const [homeWorldName, species] = await Promise.all([
-      axios.get(person.homeworld).then(({ data }) => data.name),
+      api.get(person.homeworld).then(({ data }) => data.name),
       person.species.length
-        ? axios.get(person.species[0]).then(({ data }) => data.name)
+        ? api.get(person.species[0]).then(({ data }) => data.name)
         : Promise.resolve(Default_Species),
     ]);
     return {
@@ -57,7 +57,7 @@ const App = () => {
           </div>
 
           <div
-            className=" 
+            className="
             "
           >
             {isLoading ? (
