@@ -3,14 +3,23 @@ import { api } from "./lib/api";
 import CharacterList from "./Components/CharacterList";
 import SearchBar from "./Components/SearchBar";
 import { ThemeBtn } from "./Components/ThemeBtn";
-
 import { useQuery } from "@tanstack/react-query";
+import { ApiWarning } from "./ApiWarning";
 
 const Default_Species = "Human";
 
 const App = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  // const [warning, setWarning] = useState(true);
+  const [warningModal, setWarningModal] = useState(true);
+
+  const modalBtn = () => {
+    console.log("click");
+    if (warningModal === true) {
+      setWarningModal(false);
+    } else if (warningModal === false) {
+      setWarningModal(true);
+    }
+  };
 
   const { isLoading, data: character } = useQuery(
     [`fetch-characters`, pageNumber],
@@ -46,6 +55,8 @@ const App = () => {
 
   return (
     <div className="relative mx-auto container ">
+      {warningModal ? <ApiWarning modalBtn={modalBtn} /> : null}
+
       <div className=" mx-auto text-white  ">
         <div className="flex flex-col items-center mt-5 ">
           <ThemeBtn />
