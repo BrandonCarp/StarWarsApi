@@ -15,7 +15,7 @@ const App = () => {
     [`fetch-characters`, pageNumber],
     () => fetchCharacters(pageNumber)
   );
-
+ 
   const fetchCharacters = (pageNumber) => {
     const characters = fetchPeople(pageNumber).then((people) =>
       Promise.all(people.map(fetchAuxilaryDataForPerson))
