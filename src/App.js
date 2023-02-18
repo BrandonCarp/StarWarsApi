@@ -16,9 +16,7 @@ const App = () => {
     console.log("click");
     if (warningModal === true) {
       setWarningModal(false);
-    } else if (warningModal === false) {
-      setWarningModal(true);
-    }
+    } // Removed the else if condition since it has no effect
   };
 
   const { isLoading, data: character } = useQuery(
@@ -61,27 +59,19 @@ const App = () => {
         <div className="flex flex-col items-center mt-5 ">
           <ThemeBtn />
           <div className="flex flex-col items-center ">
-            <h1 className="mb-5 text-6xl font-bold text-starYellow lg:text-8xl">
+            <h1 className="mb-5 text-6xl font-bold text-white lg:text-8xl">
               StarWars
             </h1>
-            <div className="bg-white m-10">
-              <h1 className="text-black absolute">hi</h1>
-            </div>
 
             <SearchBar />
           </div>
 
-          <div
-            className="
-            "
-          >
-            {isLoading ? (
-              <h1 className="flex justify-center">Loading...</h1>
-            ) : (
-              <CharacterList characters={character} />
-            )}
-          </div>
-          <div className="flex flex-col-reverse mt-5  md:flex-row md:space-x-10  mb-10">
+          {isLoading ? <h1 className="text-center min-w-screen">Loading...</h1>
+            : (
+              <div className="grid grid-cols-fill justify-center w-full gap-6">
+                <CharacterList characters={character} />
+              </div>)}
+          <div className="flex flex-row gap-8 mt-5 mb-10">
             <button
               className="bg-starYellow text-spaceBlack font-bold px-4 py-2 rounded-full baseline hover:bg-spaceBlack hover:text-starYellow"
               onClick={() => setPageNumber(pageNumber - 1)}
