@@ -14,6 +14,9 @@ module.exports = {
         starYellowIsh: "rgb(241, 184, 24)",
         spaceBlack: "rgb(0, 0, 0)",
       },
+      gridTemplateColumns: {
+        'fill': 'repeat(auto-fill, 250px)',
+      },
     },
   },
   plugins: [],

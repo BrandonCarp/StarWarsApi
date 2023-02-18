@@ -3,29 +3,30 @@ import React from "react";
 const Character = ({ name, birthYear, height, mass, homeWorld, species }) => {
   return (
     <>
-      <div className="relative mx-auto  container w-[80%]  mb-5 ">
-        <div className="flex  flex-col  justify-center  items-center bg-starYellow text-black rounded py-3 ">
-          <h1 className="font-bold">{name}</h1>
-          <div className="">
-            <ul className="flex px-10">
-              <li className="flex flex-col items-center">
-                {" "}
-                <p className="font-bold">Birth Year</p> <p>{birthYear}</p>
-              </li>
-              <li className="px-4 font-bold">{species}</li>
-              <li className="flex flex-col items-center">
-                <p className="font-bold">Height</p> <p>{height}</p>
-              </li>
-            </ul>
-            <ul className="flex justify-center ">
-              <li className="flex flex-col items-center">
-                <p className="font-bold">Mass</p> <p>{mass}</p>
-              </li>
-              <li className="pl-4 flex flex-col items-center">
-                <p className="font-bold">Home World</p> <p>{homeWorld}</p>
-              </li>
-            </ul>
-          </div>
+      <div className="relative mx-auto  container mb-5 ">
+        <div className="flex  flex-col h-full justify-center  items-center bg-starYellow text-black rounded py-3 ">
+          <h1 className="font-bold mb-1">{name}</h1>
+          <ul className="flex flex-row flex-wrap px-8">
+            <li className="flex flex-row justify-between gap-4 w-full">
+              <span className="font-bold">Birth Year:</span>
+              <span>{birthYear}</span>
+            </li>
+            <li className="flex flex-row justify-between gap-4 w-full" ><span className="font-bold">Species:</span>
+              <span>{species}</span>
+            </li>
+            <li className="flex flex-row justify-between gap-4 w-full" >
+              <span className="font-bold">Height:</span>
+              <span>{height}</span>
+            </li>
+            <li className="flex flex-row justify-between gap-4 w-full">
+              <span className="font-bold">Mass:</span>
+              <span>{mass}</span>
+            </li>
+            <li className="flex flex-row justify-between gap-4 w-full">
+              <span className="font-bold">Home World:</span>
+              <span>{homeWorld}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </>
